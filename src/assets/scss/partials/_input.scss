@@ -1,0 +1,41 @@
+input, textarea {
+	background: var(--colorBackground);
+	font-family: 'SourceCodePro', monospace;
+	font-size: 1em;
+	border: 0;
+	border-bottom: 1px solid var(--colorText);
+	color: var(--colorText);
+	caret-color: var(--colorText);
+	line-height: 1.5;
+	box-shadow: none;
+	transition: border 0.25s linear, color 0.25s linear,
+		background-color 0.25s linear;
+	text-align: center;
+}
+textarea {
+    font-size: 0.75rem;
+    text-align: left;
+    border: 1px solid var(--colorText);
+}
+input:disabled {
+    border-bottom: 1px dashed var(--colorText);
+}
+input:focus {
+    outline: none;
+}
+input::placeholder {
+    color: var(--colorText);
+    opacity: 0.25;
+}
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+input[type=number] {
+    -moz-appearance:textfield; /* Firefox */
+}
+
+label {
+    margin-right: 0.5rem;
+}

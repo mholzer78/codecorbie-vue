@@ -1,0 +1,17 @@
+@import './partials/_variables.scss';
+
+table {
+	margin: auto;
+	border-collapse: collapse;
+	tr {
+		&:not(:last-child) {
+			border-bottom: 1px solid var(--colorText);
+		}
+	}
+	td {
+		padding: 0.25rem 0.75rem;
+		&:not(:last-child) {
+			border-right: 1px solid var(--colorText);
+		}
+	}
+}

@@ -1,0 +1,27 @@
+input[type='radio'] {
+	display: none;
+} /* to hide the checkbox itself */
+input[type='radio'] + label {
+    display: block;
+	font-size: 1em;
+}
+input[type='radio'] + label:before {
+	font-family: icons;
+	display: inline-block;
+	margin: 0 0.25rem 0 0.5rem;
+	width: 1em;
+	text-align: left;
+}
+input[type='radio'] + label:before {
+	content: '\F10C';
+} /* unchecked icon */
+input[type='radio'] + label:before {
+	letter-spacing: 5px;
+} /* space between checkbox and label */
+
+input[type='radio']:checked + label:before {
+	content: '\F192';
+} /* checked icon */
+input[type='radio']:checked + label:before {
+	letter-spacing: 5px;
+} /* allow space for check mark */
