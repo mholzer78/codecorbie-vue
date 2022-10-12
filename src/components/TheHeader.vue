@@ -39,6 +39,7 @@ export default defineComponent({
 		<RouterLink to="/change-case">Change Case</RouterLink>
 		<RouterLink to="/lorem-ipsum">Lorem Ipsum</RouterLink>
 		<RouterLink to="/lorem-image">Lorem Image</RouterLink>
+		<RouterLink to="/calculate-time">Calculate Time</RouterLink>
 		<RouterLink to="/about">
 			<i class="icon-help-circled" aria-hidden="true"></i>
 		</RouterLink>

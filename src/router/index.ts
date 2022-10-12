@@ -48,6 +48,11 @@ const router = createRouter({
 			component: () => import('@/views/LoremImage.vue'),
 		},
 		{
+			path: '/calculate-time',
+			name: 'CalculateTime',
+			component: () => import('@/views/CalculateTime.vue'),
+		},
+		{
 			path: '/:pathMatch(.*)*',
 			name: 'not-found',
 			component: () => import('@/views/Error404.vue'),
