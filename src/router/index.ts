@@ -43,7 +43,7 @@ const router = createRouter({
 			component: () => import('@/views/LoremIpsum.vue'),
 		},
 		{
-			path: '/lorem-image',
+			path: '/lorem-image/:width?/:height?/:color?',
 			name: 'LoremImage',
 			component: () => import('@/views/LoremImage.vue'),
 		},
@@ -51,6 +51,11 @@ const router = createRouter({
 			path: '/calculate-time',
 			name: 'CalculateTime',
 			component: () => import('@/views/CalculateTime.vue'),
+		},
+        {
+			path: '/unicode-table',
+			name: 'UnicodeTable',
+			component: () => import('@/views/UnicodeTable.vue'),
 		},
 		{
 			path: '/:pathMatch(.*)*',

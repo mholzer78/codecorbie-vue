@@ -1,5 +1,5 @@
 <template>
-	<footer class="footer">© 2022 CodeCorbie</footer>
+	<footer class="footer">© 2023 CodeCorbie</footer>
 </template>
 
 <style scoped>

@@ -24,7 +24,6 @@ export default defineComponent({
 			switch (this.transform) {
 				case 'keep':
 					this.text = this.textOriginal;
-					console.log('keep');
 					break;
 				case 'lower':
 					this.text = this.textOriginal.toLowerCase();

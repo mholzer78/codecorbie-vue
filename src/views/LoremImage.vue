@@ -1,20 +1,23 @@
 <script lang="ts">
 import { hex2rgb } from '@/assets/ts/color';
-import { defineComponent } from 'vue';
+import { rgb2hex } from '@/assets/ts/color';
+import { defineComponent, withCtx } from 'vue';
 
 export default defineComponent({
 	data() {
 		return {
-			canvas: {} as CanvasRenderingContext2D,
-			canvasForDownload: {} as CanvasRenderingContext2D,
-			colorHex: '#0000FF' as string,
-			colorRGB: [0, 0, 255] as number[],
-			color: 1020 as number,
+            hostname: window.location.hostname,
+            colorHexUrl: '#0000FF',
+			colorHex: '#0000FF',
+			colorRGB: [0, 0, 255],
+			color: 1020,
 			width: 400,
 			height: 200,
 			satiation: '20',
-			colorRGBArray: [0, 0, 0, 1] as number[],
+			colorRGBArray: [0, 0, 0, 1],
 			textColor: '',
+            pauseUpdate: true,
+            directDownload: false,
 		};
 	},
 	mounted() {
@@ -24,21 +27,32 @@ export default defineComponent({
 		);
 		SourceCodePro.load().then((font) => {
 			document.fonts.add(font);
-			this.canvas = <CanvasRenderingContext2D>(
-				(<HTMLCanvasElement>(
-					document.querySelector('#canvasPreview')!
-				)).getContext('2d')
-			);
 
-			this.canvasForDownload = <CanvasRenderingContext2D>(
-				(<HTMLCanvasElement>(
-					document.querySelector('#canvasForDownload')!
-				)).getContext('2d')
-			);
+            this.pauseUpdate = false;
+
 			this.updateCanvas();
+
+            if (this.directDownload) {
+                this.downloadMe();
+            }
 		});
 	},
-	beforeMount() {},
+	beforeMount() {
+        const paramWidth = <string>this.$route.params.width;
+        const paramHeight = <string>this.$route.params.height;
+        const paramColor = <string>this.$route.params.color;
+        this.directDownload = paramWidth !== '' && paramHeight !== '' && !isNaN(parseFloat(paramWidth)) && !isNaN(parseFloat(paramHeight));
+
+        if (this.directDownload) {
+            this.width = +this.$route.params.width;
+            this.height = +this.$route.params.height;
+            if (paramColor.match(/[0-9A-Fa-f]{6}/g)) {
+                this.colorHex = '#' + paramColor;
+            } else {
+                this.colorHex = '#000000';
+            }
+        }
+    },
 	watch: {
 		colorHex() {
 			this.updateCanvas();
@@ -58,7 +72,12 @@ export default defineComponent({
 	},
 	methods: {
 		updateCanvas() {
+            if (this.pauseUpdate) { return; };
+            const canvas = document.querySelector('#canvasPreview')! as HTMLCanvasElement;
+            canvas.width = +this.width;
+            canvas.height = +this.height;
 			this.colorRGB = hex2rgb(this.colorHex.split('').splice(1, 6));
+            this.colorHexUrl = this.colorHex.slice(1);
 			var o = Math.round(
 				(this.colorRGB[0] * 299 +
 					this.colorRGB[1] * 587 +
@@ -71,14 +90,13 @@ export default defineComponent({
 			} else {
 				this.textColor = 'white';
 			}
-
 			this.fillCanvas(
-				this.canvas,
+				canvas,
 				true,
 				this.colorRGB,
 				this.textColor,
-				800,
-				200
+				+this.width,
+				+this.height,
 			);
 		},
 		mathInRange(value: number, relation: number, margin: number) {
@@ -88,63 +106,55 @@ export default defineComponent({
 			return false;
 		},
 		fillCanvas(
-			canvas: CanvasRenderingContext2D,
+			canvas: HTMLCanvasElement,
 			preview: boolean,
 			colorArray: number[],
 			textColor: string,
-			width = 800,
-			height = 200
+			width: number,
+			height: number,
 		) {
 			let fontSize = width / 20;
 			if (fontSize < 20) {
 				fontSize = 20;
 			}
-			canvas.clearRect(0, 0, width, height);
+            const ctx = canvas.getContext('2d')!;
 
-			canvas.beginPath();
-			canvas.rect(0, 0, width, height);
-			canvas.fillStyle = parseInt(this.satiation) < 0 ? 'black' : 'white';
-			canvas.fill();
+			ctx.clearRect(0, 0, width, height);
 
-			canvas.beginPath();
-			canvas.rect(0, 0, width, height);
-			canvas.fillStyle = 'rgba(' + colorArray.join(',') + ')';
-			canvas.fill();
+			ctx.beginPath();
+			ctx.rect(0, 0, width, height);
+			ctx.fillStyle = parseInt(this.satiation) < 0 ? 'black' : 'white';
+			ctx.fill();
 
-			canvas.font = fontSize + 'px SourceCodePro, monospace';
-			canvas.textAlign = 'center';
-			canvas.textBaseline = 'middle';
-			canvas.fillStyle = textColor;
-			canvas.fillText(
+			ctx.beginPath();
+			ctx.rect(0, 0, width, height);
+			ctx.fillStyle = 'rgba(' + colorArray.join(',') + ')';
+			ctx.fill();
+
+			ctx.font = fontSize + 'px SourceCodePro, monospace';
+			ctx.textAlign = 'center';
+			ctx.textBaseline = 'middle';
+			ctx.fillStyle = textColor;
+			ctx.fillText(
 				this.width.toString() + 'px',
 				width / 2,
 				height / 2 - fontSize
 			);
-			canvas.fillText('x', width / 2, height / 2);
-			canvas.fillText(
+			ctx.fillText('x', width / 2, height / 2);
+			ctx.fillText(
 				this.height.toString() + 'px',
 				width / 2,
 				height / 2 + fontSize
 			);
 
-			if (preview) {
-				canvas.font = '1rem sans-serif';
-				canvas.textAlign = 'right';
-				canvas.textBaseline = 'top';
-				canvas.fillStyle = textColor;
-				canvas.fillText(
-					'* Neither size or ratio are updated in the preview!',
-					width - 10,
-					10
-				);
-			} else {
+			if (!preview) {
 				let img = <HTMLImageElement>document.getElementById('corbie')!;
 				// 550 x 640
 				let imgSize = {
 					width: (11 * width) / 100,
 					height: (12.8 * width) / 100,
 				};
-				canvas.drawImage(
+				ctx.drawImage(
 					img,
 					width - imgSize.width - 10,
 					height - imgSize.height - 10,
@@ -154,20 +164,22 @@ export default defineComponent({
 			}
 		},
 		downloadMe() {
+            const canvasForDownload = document.querySelector('#canvasForDownload')! as HTMLCanvasElement;
 			this.fillCanvas(
-				this.canvasForDownload,
+				canvasForDownload as HTMLCanvasElement,
 				false,
 				this.colorRGB,
 				this.textColor,
 				+this.width,
 				+this.height
 			);
-			const image = this.canvasForDownload.canvas.toDataURL('image/png');
+            const ctx = canvasForDownload.getContext('2d')!;
+			const image = canvasForDownload.toDataURL('image/png');
 			var a = document.createElement('a');
 			a.href = image;
 			a.setAttribute(
 				'download',
-				this.width.toString() + 'x' + this.height.toString() + '_codecorbie'
+				this.width.toString() + 'x' + this.height.toString() + '_' + rgb2hex(this.colorRGB) + '_codecorbie'
 			);
 			a.click();
 		},
@@ -177,6 +189,9 @@ export default defineComponent({
 
 <template>
 	<div class="content">
+        <div>
+            In the preview below, only the ratio is updated accordingly, the size of the preview is limited.
+        </div>
 		<div class="imagePreview">
 			<canvas id="canvasPreview" width="800" height="200"></canvas>
 		</div>
@@ -229,6 +244,9 @@ export default defineComponent({
                 <multi-button icon="download" @click="downloadMe" />
 			</div>
 		</div>
+        <div>
+            For direct download try entering https://{{hostname}}/lorem-image/{{width}}/{{height}}/{{colorHexUrl}}
+        </div>
 		<div>
 			<canvas
 				id="canvasForDownload"
@@ -258,6 +276,13 @@ export default defineComponent({
 }
 canvas {
 	border: 1px solid black;
+}
+.imagePreview {
+    height: 300px;
+}
+#canvasPreview {
+    max-width: 600px;
+    max-height: 300px;
 }
 #canvasForDownload,
 #corbie {

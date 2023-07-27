@@ -33,9 +33,7 @@ export default defineComponent({
 						const loremIpsumArray = loremIpsum.split('');
 						let arrow = -1;
 						for (let i = 1; i <= this.textLength; i++) {
-							console.log(i + arrow, loremIpsumArray.length);
 							if (i + arrow >= loremIpsumArray.length) {
-								console.log('bin da');
 								arrow -= loremIpsumArray.length;
 							}
 							tempArray.push(loremIpsumArray[i + arrow]);
@@ -49,7 +47,6 @@ export default defineComponent({
 						const loremIpsumArray = loremIpsum.split(' ');
 						let arrow = -1;
 						for (let i = 1; i <= this.textLength; i++) {
-							console.log(i + arrow, loremIpsumArray.length);
 							if (i + arrow >= loremIpsumArray.length) {
 								arrow -= loremIpsumArray.length;
 							}
