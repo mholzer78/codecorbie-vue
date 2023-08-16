@@ -73,77 +73,6 @@ export default defineComponent({
             return tempString;
         },
     },
-    /*
-	data() {
-		return {
-			text: '',
-			textLength: 2,
-			textLengthType: 'paragraphs',
-		};
-	},
-	beforeMount() {
-		this.changeText();
-	},
-	emits: ['copyToClipboard'],
-	watch: {
-		textLength() {
-			this.changeText();
-		},
-		textLengthType() {
-			this.changeText();
-		},
-	},
-	methods: {
-		changeText() {
-			switch (this.textLengthType) {
-				case 'chars':
-					{
-						let tempArray = [];
-						const loremIpsumArray = loremIpsum.split('');
-						let arrow = -1;
-						for (let i = 1; i <= this.textLength; i++) {
-							console.log(i + arrow, loremIpsumArray.length);
-							if (i + arrow >= loremIpsumArray.length) {
-								console.log('bin da');
-								arrow -= loremIpsumArray.length;
-							}
-							tempArray.push(loremIpsumArray[i + arrow]);
-						}
-						this.text = tempArray.join('');
-					}
-					break;
-				case 'words':
-					{
-						let tempArray: string[] = [];
-						const loremIpsumArray = loremIpsum.split(' ');
-						let arrow = -1;
-						for (let i = 1; i <= this.textLength; i++) {
-							console.log(i + arrow, loremIpsumArray.length);
-							if (i + arrow >= loremIpsumArray.length) {
-								arrow -= loremIpsumArray.length;
-							}
-							tempArray.push(loremIpsumArray[i + arrow]);
-						}
-						this.text = tempArray.join(' ');
-					}
-					break;
-				case 'paragraphs':
-					let tempText = '';
-					for (let i = 1; i <= this.textLength; i++) {
-						if (i !== 1) {
-							tempText += '\n\n';
-						}
-						tempText += loremIpsum;
-					}
-					this.text = tempText;
-					break;
-			}
-		},
-		copyMe() {
-			this.$emit('copyToClipboard', this.text);
-		},
-	},
-*/
 });
 </script>
 
@@ -159,52 +88,6 @@ export default defineComponent({
                 </template>
             </tbody>
         </table>
-        <!--
-			<textarea
-				id="text"
-				name="text"
-                rows="15" 
-				placeholder="Please enter the text you wanna transform!"
-				disabled
-				v-model="text"
-			>
-			</textarea>
-			<div>
-				<div class="right">
-                    <multi-button icon="docs" @click="copyMe" />
-				</div>
-				<div class="left">
-					<input
-						type="number"
-                        size="3"
-						min="1"
-						max="999"
-						v-model="textLength"
-					/>
-					<input
-						type="radio"
-						id="chars"
-						value="chars"
-						v-model="textLengthType"
-					/>
-					<label for="chars">Letters</label>
-					<input
-						type="radio"
-						id="words"
-						value="words"
-						v-model="textLengthType"
-					/>
-					<label for="words">Words</label>
-					<input
-						type="radio"
-						id="paragraphs"
-						value="paragraphs"
-						v-model="textLengthType"
-					/>
-					<label for="paragraphs">Paragraphs</label>
-				</div>
-			</div>
--->
     </div>
 </template>
 

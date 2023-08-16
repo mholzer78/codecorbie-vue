@@ -1,3 +1,25 @@
+<template>
+    <input
+        type="radio"
+        :id="model + value"
+        :value="value"
+        :modelValue="model"
+        :checked="value === selected"
+        @change="$emit('radioChanged', model, value)"
+    />
+    <label :for="model + value" :class="addClass">{{ value }}</label>
+</template>
+
+<script lang="ts">
+import { ref, defineComponent } from 'vue';
+
+export default defineComponent({
+    emits: ['radioChanged'],
+    props: ['value', 'model', 'addClass', 'selected'],
+});
+</script>
+
+<style lang="scss" scoped>
 input[type='radio'] {
     display: none;
 } /* to hide the checkbox itself */
@@ -25,3 +47,8 @@ input[type='radio']:checked + label:before {
 input[type='radio']:checked + label:before {
     letter-spacing: 5px;
 } /* allow space for check mark */
+
+input[type='radio'] + label.small {
+    font-size: 0.7em;
+}
+</style>

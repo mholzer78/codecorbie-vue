@@ -6,14 +6,14 @@
 *,
 *::before,
 *::after {
-	box-sizing: border-box;
+    box-sizing: border-box;
 }
 
 body {
-	margin: 0;
-	min-height: 100vh;
-	font-family: 'SourceSansPro', sans-serif;
-	text-align: center;
+    margin: 0;
+    min-height: 100vh;
+    font-family: 'SourceSansPro', sans-serif;
+    text-align: center;
 }
 #app {
     min-height: 100vh;
@@ -21,9 +21,9 @@ body {
     flex-direction: column;
 }
 .content {
-	margin: auto;
+    margin: auto;
     padding: 1rem;
-	font-size: 1.5rem;
+    font-size: 1.5rem;
     width: 1024px;
     border-radius: 1.5rem;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
@@ -33,5 +33,5 @@ p.small {
     font-size: 0.75em;
 }
 .content > div:not(:last-child) {
-	margin-bottom: 1rem;
+    margin-bottom: 1rem;
 }
