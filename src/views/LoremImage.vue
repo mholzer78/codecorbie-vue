@@ -322,7 +322,6 @@ canvas {
 }
 
 input[type='color'] {
-    -webkit-appearance: none;
     margin-left: 1rem;
     padding: 0;
     border: none;

@@ -19,7 +19,6 @@ textarea {
 }
 input:disabled {
     border-bottom: 0;
-//    border-bottom: 1px dashed var(--colorText);
 }
 input:focus {
     outline: none;
@@ -33,10 +32,6 @@ input::-webkit-inner-spin-button {
     -webkit-appearance: none;
     margin: 0;
 }
-input[type='number'] {
-    -moz-appearance: textfield; /* Firefox */
-}
-
 label {
     margin-right: 0.5rem;
 }
