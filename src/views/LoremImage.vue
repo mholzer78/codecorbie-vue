@@ -21,11 +21,11 @@ export default defineComponent({
 		};
 	},
 	mounted() {
-		let SourceCodePro = new FontFace(
-			'SourceCodePro',
-			'url("/assets/fonts/sourcecodepro/SourceCodePro-Regular.otf")'
+		let SourceCode = new FontFace(
+			'SourceCode',
+			'url("/assets/fonts/sourceCode/SourceCodePro-Regular.otf")'
 		);
-		SourceCodePro.load().then((font) => {
+		SourceCode.load().then((font) => {
 			document.fonts.add(font);
 
             this.pauseUpdate = false;
@@ -131,7 +131,7 @@ export default defineComponent({
 			ctx.fillStyle = 'rgba(' + colorArray.join(',') + ')';
 			ctx.fill();
 
-			ctx.font = fontSize + 'px SourceCodePro, monospace';
+			ctx.font = fontSize + 'px SourceCode, monospace';
 			ctx.textAlign = 'center';
 			ctx.textBaseline = 'middle';
 			ctx.fillStyle = textColor;

@@ -1,6 +1,6 @@
 input, textarea {
 	background: var(--colorBackground);
-	font-family: 'SourceCodePro', monospace;
+	font-family: 'SourceCode', monospace;
 	font-size: 1em;
 	border: 0;
 	border-bottom: 1px solid var(--colorText);
@@ -9,7 +9,7 @@ input, textarea {
 	line-height: 1.5;
 	box-shadow: none;
 	transition: border 0.25s linear, color 0.25s linear,
-		background-color 0.25s linear;
+    background-color 0.25s linear;
 	text-align: center;
 }
 textarea {
@@ -18,7 +18,8 @@ textarea {
     border: 1px solid var(--colorText);
 }
 input:disabled {
-    border-bottom: 1px dashed var(--colorText);
+    border-bottom: 0;
+//    border-bottom: 1px dashed var(--colorText);
 }
 input:focus {
     outline: none;
