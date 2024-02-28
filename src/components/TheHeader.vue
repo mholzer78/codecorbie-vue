@@ -5,7 +5,7 @@ import { RouterLink } from 'vue-router';
 <script lang="ts">
 import { defineComponent } from 'vue';
 export default defineComponent({
-	props: ['route'],
+    props: ['route'],
 });
 </script>
 
@@ -46,50 +46,50 @@ export default defineComponent({
 
 <style scoped lang="scss">
 header {
-	&.container {
-		display: flex;
-		justify-content: center;
-		align-items: center;
-		padding: 0.5rem;
-	}
-	#logo {
-		height: 5rem;
-	}
-	#title,
-	#slogan {
-		margin: 0 auto;
-	}
+    &.container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 0.5rem;
+    }
+    #logo {
+        height: 5rem;
+    }
+    #title,
+    #slogan {
+        margin: 0 auto;
+    }
 }
 nav {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	margin-bottom: 2rem;
-	background-color: var(--colorText);
-	a {
-		text-decoration: none;
-		font-size: 1rem;
-		width: 7rem;
-		padding: 0.5rem 1rem;
-		color: white;
-		border: 1px solid var(--colorHighlight);
-		border-width: 0 1px;
-		&.router-link-active {
-			color: var(--colorHighlight);
-		}
-		&:not(.router-link-active):hover {
-			opacity: 0.85;
-		}
-		&:first-child,
-		&:last-child {
-			font-size: 2rem;
-		}
-		&:first-child {
-			border-left-width: 2px;
-		}
-		&:last-child {
-			border-right-width: 2px;
-		}
-	}
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 2rem;
+    background-color: var(--colorText);
+    a {
+        text-decoration: none;
+        font-size: 1rem;
+        width: 7rem;
+        padding: 0.5rem 1rem;
+        color: white;
+        border: 1px solid var(--colorHighlight);
+        border-width: 0 1px;
+        &.router-link-active {
+            color: var(--colorHighlight);
+        }
+        &:not(.router-link-active):hover {
+            opacity: 0.85;
+        }
+        &:first-child,
+        &:last-child {
+            font-size: 2rem;
+        }
+        &:first-child {
+            border-left-width: 2px;
+        }
+        &:last-child {
+            border-right-width: 2px;
+        }
+    }
 }
 </style>

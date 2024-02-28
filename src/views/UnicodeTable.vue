@@ -8,19 +8,9 @@ import { defineComponent } from 'vue';
 export default defineComponent({
     data() {
         return {
-            times: [
-                { master: 31536000000, text: '' },
-                { master: 31536001, text: '' },
-                { master: 0, text: '' },
-            ],
-            options: {
-                week: true,
-                day: true,
-                hour: true,
-                minute: true,
-                second: true,
-                millisecond: true,
-            },
+            hex: ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'],
+            horizontal: [] as string[],
+            vertical: [],
         };
     },
     beforeMount() {
@@ -28,50 +18,14 @@ export default defineComponent({
     },
     methods: {
         init() {
-            this.times[2].master = object2int('3w 5d 36:00:00-01', this.options);
-            this.times.forEach((element) => {
-                element.text = this.calculateEntry(element.master);
-            });
+            this.hex.forEach((item, index) => {
+                this.horizontal[index] = item;
+            })
         },
-        changeEntry() {},
-        calculateEntry(millisecond: number) {
-            let tempObj = int2object(millisecond, this.options);
-            let tempString = '';
-            if (this.options.week && tempObj.week > 0) {
-                tempString += tempObj.week + 'w ';
-            }
-            if (this.options.day && tempObj.day > 0) {
-                tempString += tempObj.day + 'd ';
-            }
-            if (this.options.hour) {
-                tempString += tempObj.hour + ':';
-            }
-            if (this.options.minute) {
-                if (tempObj.minute.toString().length < 2) {
-                    tempString += '0';
-                }
-                tempString += tempObj.minute;
-            }
-            if (this.options.second) {
-                tempString += ':';
-                if (tempObj.second.toString().length < 2) {
-                    tempString += '0';
-                }
-                tempString += tempObj.second;
-            }
-            if (this.options.millisecond && tempObj.millisecond > 0) {
-                tempString += '-';
-                
-                if (tempObj.millisecond.toString().length < 3) {
-                    tempString += '0';
-                }
-                if (tempObj.millisecond.toString().length < 2) {
-                    tempString += '0';
-                }
-                tempString += tempObj.millisecond;
-            }
-            return tempString;
-        },
+        getChar(index1: number, index2: number, index3: number, index4: number, ) {
+            console.log(String.fromCharCode(index4 + (index3 * 16) + (index2 * 16 * 16) + (index1 * 16 * 16 * 16)));
+            return String.fromCharCode(index4 + (index3 * 16) + (index2 * 16 * 16) + (index1 * 16 * 16 * 16));
+        }
     },
     /*
 	data() {
@@ -151,11 +105,19 @@ export default defineComponent({
     <div class="content">
         <table>
             <tbody>
-                <template v-for="time in times">
-                    <tr class="flex">
-                        <td>{{ time.master }}</td>
-                        <td>{{ time.text }}</td>
-                    </tr>
+                <tr>
+                    <td></td>
+                    <td v-for="head in hex">{{ head }}</td>
+                </tr>
+                <template v-for="(level1, index1) in hex">
+                    <template v-for="(level2, index2) in hex">
+                        <template v-for="(level3, index3) in hex">
+                            <tr class="flex">
+                                <td>U+{{ level1 + level2 + level3 }}x</td>
+                                <td v-for="(level4, index4) in hex">{{ getChar(index1, index2, index3, index4) }}</td>
+                            </tr>
+                        </template>
+                    </template>
                 </template>
             </tbody>
         </table>

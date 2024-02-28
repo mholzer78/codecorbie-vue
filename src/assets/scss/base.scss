@@ -6,7 +6,7 @@
 *,
 *::before,
 *::after {
-	box-sizing: border-box;
+    box-sizing: border-box;
 }
 
 body {
@@ -21,9 +21,9 @@ body {
     flex-direction: column;
 }
 .content {
-	margin: auto;
+    margin: auto;
     padding: 1rem;
-	font-size: 1.5rem;
+    font-size: 1.5rem;
     width: 1024px;
     border-radius: 1.5rem;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
@@ -33,5 +33,5 @@ p.small {
     font-size: 0.75em;
 }
 .content > div:not(:last-child) {
-	margin-bottom: 1rem;
+    margin-bottom: 1rem;
 }
